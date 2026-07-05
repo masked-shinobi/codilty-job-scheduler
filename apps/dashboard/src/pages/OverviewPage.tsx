@@ -44,19 +44,19 @@ export default function OverviewPage() {
   const totalFailed = (metrics?.successFailRatio?.failed || 0) + (metrics?.successFailRatio?.dead || 0);
 
   return (
-    <div className="animate-fade-in space-y-8">
+    <div className="animate-fade-in space-y-10">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-white tracking-tight">Dashboard</h1>
-        <p className="mt-1 text-gray-400">Real-time overview of your job scheduling platform</p>
+        <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">Dashboard</h1>
+        <p className="mt-2 text-lg text-slate-500 dark:text-gray-400">Real-time overview of your job scheduling platform</p>
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div className="stat-card animate-slide-up" style={{ animationDelay: '0ms' }}>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-brand-500/15 rounded-xl flex items-center justify-center">
-              <ListTodo className="w-5 h-5 text-brand-400" />
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-brand-500/10 dark:bg-brand-500/15 rounded-2xl flex items-center justify-center">
+              <ListTodo className="w-6 h-6 text-brand-600 dark:text-brand-400" />
             </div>
             <span className="stat-label">Active Queues</span>
           </div>
@@ -64,29 +64,29 @@ export default function OverviewPage() {
         </div>
 
         <div className="stat-card animate-slide-up" style={{ animationDelay: '50ms' }}>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-emerald-500/15 rounded-xl flex items-center justify-center">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-emerald-500/10 dark:bg-emerald-500/15 rounded-2xl flex items-center justify-center">
+              <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
             </div>
             <span className="stat-label">Completed (24h)</span>
           </div>
-          <span className="stat-value">{totalCompleted}</span>
+          <span className="stat-value">{totalCompleted.toLocaleString()}</span>
         </div>
 
         <div className="stat-card animate-slide-up" style={{ animationDelay: '100ms' }}>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-red-500/15 rounded-xl flex items-center justify-center">
-              <XCircle className="w-5 h-5 text-red-400" />
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-red-500/10 dark:bg-red-500/15 rounded-2xl flex items-center justify-center">
+              <XCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
             </div>
             <span className="stat-label">Failed (24h)</span>
           </div>
-          <span className="stat-value">{totalFailed}</span>
+          <span className="stat-value">{totalFailed.toLocaleString()}</span>
         </div>
 
         <div className="stat-card animate-slide-up" style={{ animationDelay: '150ms' }}>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-cyan-500/15 rounded-xl flex items-center justify-center">
-              <Server className="w-5 h-5 text-cyan-400" />
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-2xl flex items-center justify-center">
+              <Server className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
             </div>
             <span className="stat-label">Active Workers</span>
           </div>
@@ -95,79 +95,79 @@ export default function OverviewPage() {
       </div>
 
       {/* Queue Health Summary */}
-      <div className="glass-card p-6">
-        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <BarChart3 className="w-5 h-5 text-brand-400" />
+      <div className="glass-card">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+          <BarChart3 className="w-6 h-6 text-brand-500 dark:text-brand-400" />
           Queue Health
         </h2>
 
         {metrics?.queueStats?.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {metrics.queueStats.map((q: any) => (
-              <div key={q.queueId} className="bg-surface-700/30 rounded-xl p-4 border border-white/5">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-medium text-white">{q.queueName}</span>
+              <div key={q.queueId} className="bg-slate-50 dark:bg-surface-700/30 rounded-2xl p-6 border border-slate-200/60 dark:border-white/5">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-bold text-lg text-slate-900 dark:text-white">{q.queueName}</span>
                   <StatusBadge status={q.health} />
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="grid grid-cols-2 gap-3 text-base">
                   <div>
-                    <span className="text-gray-500">Queued</span>
-                    <span className="ml-2 text-gray-300 font-mono">{q.queued}</span>
+                    <span className="text-slate-500 dark:text-gray-500 font-medium">Queued</span>
+                    <span className="ml-2 text-slate-800 dark:text-gray-300 font-mono font-semibold">{q.queued}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">Running</span>
-                    <span className="ml-2 text-gray-300 font-mono">{q.running}</span>
+                    <span className="text-slate-500 dark:text-gray-500 font-medium">Running</span>
+                    <span className="ml-2 text-slate-800 dark:text-gray-300 font-mono font-semibold">{q.running}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">Completed</span>
-                    <span className="ml-2 text-emerald-400 font-mono">{q.completed}</span>
+                    <span className="text-slate-500 dark:text-gray-500 font-medium">Completed</span>
+                    <span className="ml-2 text-emerald-600 dark:text-emerald-400 font-mono font-semibold">{q.completed}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500">Failed</span>
-                    <span className="ml-2 text-red-400 font-mono">{q.failed}</span>
+                    <span className="text-slate-500 dark:text-gray-500 font-medium">Failed</span>
+                    <span className="ml-2 text-red-600 dark:text-red-400 font-mono font-semibold">{q.failed}</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-gray-500 text-sm">No queues available. Create a queue to get started.</p>
+          <p className="text-slate-500 dark:text-gray-500 text-base py-4">No queues available. Create a queue to get started.</p>
         )}
       </div>
 
       {/* Recent Workers */}
-      <div className="glass-card p-6">
-        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <Server className="w-5 h-5 text-brand-400" />
+      <div className="glass-card">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+          <Server className="w-6 h-6 text-brand-500 dark:text-brand-400" />
           Workers
         </h2>
         {workers.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead>
-                <tr className="text-gray-500 text-left border-b border-white/5">
-                  <th className="pb-3 font-medium">Hostname</th>
-                  <th className="pb-3 font-medium">PID</th>
-                  <th className="pb-3 font-medium">Status</th>
-                  <th className="pb-3 font-medium">Last Seen</th>
-                  <th className="pb-3 font-medium">Active Jobs</th>
+                <tr className="text-slate-500 dark:text-gray-500 text-left border-b border-slate-200 dark:border-white/5">
+                  <th className="pb-4 font-bold text-xs uppercase tracking-wider">Hostname</th>
+                  <th className="pb-4 font-bold text-xs uppercase tracking-wider">PID</th>
+                  <th className="pb-4 font-bold text-xs uppercase tracking-wider">Status</th>
+                  <th className="pb-4 font-bold text-xs uppercase tracking-wider">Last Seen</th>
+                  <th className="pb-4 font-bold text-xs uppercase tracking-wider">Active Jobs</th>
                 </tr>
               </thead>
               <tbody>
                 {workers.map((w: any) => (
                   <tr key={w.id} className="table-row">
-                    <td className="py-3 font-mono text-gray-300">{w.hostname}</td>
-                    <td className="py-3 font-mono text-gray-400">{w.pid}</td>
-                    <td className="py-3"><StatusBadge status={w.status} /></td>
-                    <td className="py-3 text-gray-400">{new Date(w.lastSeenAt).toLocaleTimeString()}</td>
-                    <td className="py-3 text-gray-300">{w.claimedJobs?.length || 0}</td>
+                    <td className="py-5 font-mono font-semibold text-slate-800 dark:text-gray-300">{w.hostname}</td>
+                    <td className="py-5 font-mono text-slate-500 dark:text-gray-400">{w.pid}</td>
+                    <td className="py-5"><StatusBadge status={w.status} /></td>
+                    <td className="py-5 text-slate-500 dark:text-gray-400">{new Date(w.lastSeenAt).toLocaleTimeString()}</td>
+                    <td className="py-5 font-semibold text-slate-800 dark:text-gray-300">{w.claimedJobs?.length || 0}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         ) : (
-          <p className="text-gray-500 text-sm">No workers registered. Start a worker instance to begin processing jobs.</p>
+          <p className="text-slate-500 dark:text-gray-500 text-base py-4">No workers registered. Start a worker instance to begin processing jobs.</p>
         )}
       </div>
     </div>
