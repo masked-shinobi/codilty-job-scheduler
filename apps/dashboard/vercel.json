@@ -1,4 +1,5 @@
 {
-  "buildCommand": "tsc -b && vite build",
+  "installCommand": "npm install --prefix ../../",
+  "buildCommand": "npm run build --prefix ../../ -w @job-scheduler/dashboard",
   "outputDirectory": "dist"
 }
